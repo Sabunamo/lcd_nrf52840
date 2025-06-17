@@ -1,0 +1,25 @@
+/* STEP 2.1 - Add the SPI peripheral to spi1 */
+&i2c0 {	status = "disabled";};
+&spi0 {	status = "disabled";};
+&i2c1 {	status = "disabled";};
+
+&spi1 {
+    status = "okay";
+    cs-gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
+
+    ili9341@0 {
+        compatible = "ilitek,ili9341";
+        reg = <0>;
+        spi-max-frequency = <8000000>;
+
+        reset-gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
+        dc-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
+
+        width = <240>;
+        height = <320>;
+        rotation = <0>;
+
+        backlight-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
+        gamset = [00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F 10 11 12 13];
+    };
+};
